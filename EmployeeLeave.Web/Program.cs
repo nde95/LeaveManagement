@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using EmployeeLeave.Web.Configurations;
+using EmployeeLeave.Web.Contracts;
+using EmployeeLeave.Web.Repositories;
 
 namespace EmployeeLeave.Web
 {
@@ -21,6 +23,8 @@ namespace EmployeeLeave.Web
             builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
             builder.Services.AddAutoMapper(typeof(MapperConfig));
             
             builder.Services.AddControllersWithViews();
