@@ -9,9 +9,11 @@ using EmployeeLeave.Web.Data;
 using AutoMapper;
 using EmployeeLeave.Web.Models;
 using EmployeeLeave.Web.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeLeave.Web.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository leaveTypeRepository;
