@@ -1,13 +1,16 @@
-﻿using AutoMapper;
+﻿using System.Data;
+using AutoMapper;
 using EmployeeLeave.Web.Constants;
 using EmployeeLeave.Web.Data;
 using EmployeeLeave.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeLeave.Web.Controllers
 {
+    [Authorize(Roles = Roles.Administrator)]
     public class EmployeesController : Controller
     {
         private readonly UserManager<Employee> userManager;
