@@ -4,6 +4,7 @@ using EmployeeLeave.Web.Constants;
 using EmployeeLeave.Web.Contracts;
 using EmployeeLeave.Web.Data;
 using EmployeeLeave.Web.Models;
+using EmployeeLeave.Web.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -60,16 +61,21 @@ namespace EmployeeLeave.Web.Controllers
             }
         }
 
-        // GET: EmployeesController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: EmployeesController/EditAllocation/5
+        public async Task<ActionResult> EditAllocation(int id)
         {
-            return View();
+            var model = await leaveAllocationRepository.GetEmployeeAllocation(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
         }
 
-        // POST: EmployeesController/Edit/5
+        // POST: EmployeesController/EditAllocation/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditAllocation(int id, IFormCollection collection)
         {
             try
             {
