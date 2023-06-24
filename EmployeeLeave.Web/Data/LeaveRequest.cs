@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeLeave.Web.Data
 {
     public class LeaveRequest : BaseEntity
     {
         public DateTime StartDate { get; set; }
+
         public DateTime EndDate { get; set; }
 
         [ForeignKey("LeaveTypeId")]
