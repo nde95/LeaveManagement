@@ -9,6 +9,8 @@ using EmployeeLeave.Web.Data;
 using EmployeeLeave.Web.Constants;
 using Microsoft.AspNetCore.Authorization;
 using EmployeeLeave.Web.Models;
+using AutoMapper;
+using EmployeeLeave.Web.Contracts;
 
 namespace EmployeeLeave.Web.Controllers
 {
@@ -16,10 +18,12 @@ namespace EmployeeLeave.Web.Controllers
     public class LeaveRequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILeaveRequestRepository leaveRepository;
 
-        public LeaveRequestsController(ApplicationDbContext context)
+        public LeaveRequestsController(ApplicationDbContext context, ILeaveRequestRepository leaveRepository)
         {
             _context = context;
+            this.leaveRepository = leaveRepository;
         }
 
         // GET: LeaveRequests
@@ -63,16 +67,22 @@ namespace EmployeeLeave.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StartDate,EndDate,LeaveTypeId,DateRequested,RequestComments,Approved,Cancelled,RequestingEmployeeId,Id,DateCreated,DateModified")] LeaveRequest leaveRequest)
+        public async Task<IActionResult> Create(LeaveRequestCreateVM model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(leaveRequest);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await leaveRepository.CreateLeaveRequest(model);
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["LeaveTypeId"] = new SelectList(_context.LeaveTypes, "Id", "Name", leaveRequest.LeaveTypeId);
-            return View(leaveRequest);
+            catch(Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "An Error Has Occured, Please Check And Try Again");
+            }
+            model.LeaveTypes = new SelectList(_context.LeaveTypes, "Id", "Name", model.LeaveTypeId);
+            return View(model);
         }
 
         // GET: LeaveRequests/Edit/5
