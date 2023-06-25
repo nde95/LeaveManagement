@@ -33,6 +33,12 @@ namespace EmployeeLeave.Web.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<ActionResult> MyLeave()
+        {
+            var model = await leaveRepository.GetMyLeaveDetails();
+            return View(model);
+        }
+
         // GET: LeaveRequests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -74,7 +80,7 @@ namespace EmployeeLeave.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     await leaveRepository.CreateLeaveRequest(model);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(MyLeave));
                 }
             }
             catch(Exception ex)
