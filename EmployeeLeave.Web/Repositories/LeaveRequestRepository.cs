@@ -24,6 +24,18 @@ namespace EmployeeLeave.Web.Repositories
             this.userManager = userManager;
         }
 
+        public async Task ChangeApprovalStatus(int leaveRequestId, bool approved)
+        {
+            var leaveRequest = await GetAsync(leaveRequestId);
+            leaveRequest.Approved = approved;
+
+            if(approved)
+            {
+            }
+
+            await UpdateAsync(leaveRequest);
+        }
+
         public async Task CreateLeaveRequest(LeaveRequestCreateVM model)
         {
             var user = await userManager.GetUserAsync(httpContextAccessor?.HttpContext?.User);
@@ -33,6 +45,26 @@ namespace EmployeeLeave.Web.Repositories
             leaveRequest.RequestingEmployeeId = user.Id;
 
             await AddAsync(leaveRequest);
+        }
+
+        public async Task<AdminViewLeaveRequestsVM> GetAdminLeaveRequestList()
+        {
+            var leaveRequests = await context.LeaveRequests.Include(q => q.LeaveType).ToListAsync();
+            var model = new AdminViewLeaveRequestsVM
+            {
+                TotalRequests = leaveRequests.Count,
+                ApprovedRequests = leaveRequests.Count(q => q.Approved == true),
+                PendingRequests = leaveRequests.Count(q => q.Approved == null),
+                RejectedRequests = leaveRequests.Count(q => q.Approved == false),
+                LeaveRequests = mapper.Map<List<LeaveRequestVM>>(leaveRequests),
+            };
+
+            foreach (var leaveRequest in model.LeaveRequests)
+            {
+                leaveRequest.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync(leaveRequest.RequestingEmployeeId));
+            }
+
+            return model;
         }
 
         public async Task<List<LeaveRequest>> GetAllAsync(string employeeId)

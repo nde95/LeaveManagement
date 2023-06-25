@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using EmployeeLeave.Web.Models;
 using AutoMapper;
 using EmployeeLeave.Web.Contracts;
+using EmployeeLeave.Web.Repositories;
 
 namespace EmployeeLeave.Web.Controllers
 {
@@ -26,11 +27,12 @@ namespace EmployeeLeave.Web.Controllers
             this.leaveRepository = leaveRepository;
         }
 
+        [Authorize(Roles = Roles.Administrator)]
         // GET: LeaveRequests
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.LeaveRequests.Include(l => l.LeaveType);
-            return View(await applicationDbContext.ToListAsync());
+            var model = await leaveRepository.GetAdminLeaveRequestList();
+            return View(model);
         }
 
         public async Task<ActionResult> MyLeave()
