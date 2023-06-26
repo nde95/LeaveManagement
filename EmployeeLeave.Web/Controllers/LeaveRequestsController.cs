@@ -69,6 +69,23 @@ namespace EmployeeLeave.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Cancel Leave Request
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cancel(int id)
+        {
+            try
+            {
+                await leaveRepository.CancelLeaveRequest(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return RedirectToAction(nameof(MyLeave));
+        }
+
         // GET: LeaveRequests/Create
         public IActionResult Create()
         {

@@ -24,6 +24,13 @@ namespace EmployeeLeave.Web.Repositories
             this.userManager = userManager;
         }
 
+        public async Task CancelLeaveRequest(int leaveRequestId)
+        {
+            var leaveRequest = await GetAsync(leaveRequestId);
+            leaveRequest.Cancelled = true;
+            await UpdateAsync(leaveRequest);
+        }
+
         public async Task ChangeApprovalStatus(int leaveRequestId, bool approved)
         {
             var leaveRequest = await GetAsync(leaveRequestId);
