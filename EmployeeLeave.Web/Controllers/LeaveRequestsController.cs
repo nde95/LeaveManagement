@@ -44,20 +44,29 @@ namespace EmployeeLeave.Web.Controllers
         // GET: LeaveRequests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.LeaveRequests == null)
+            var model = await leaveRepository.GetLeaveRequestAsync(id);
+            if (model == null)
             {
                 return NotFound();
             }
+            return View(model);
+        }
 
-            var leaveRequest = await _context.LeaveRequests
-                .Include(l => l.LeaveType)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (leaveRequest == null)
+
+        // POST: LeaveRequests/Details/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveRequest(int id, bool approved)
+        {
+            try
             {
-                return NotFound();
+                await leaveRepository.ChangeApprovalStatus(id, approved);
             }
-
-            return View(leaveRequest);
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: LeaveRequests/Create
