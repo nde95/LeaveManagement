@@ -107,8 +107,12 @@ namespace EmployeeLeave.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await leaveRepository.CreateLeaveRequest(model);
-                    return RedirectToAction(nameof(MyLeave));
+                    var isValidRequest = await leaveRepository.CreateLeaveRequest(model);
+                    if (isValidRequest)
+                    {
+                        return RedirectToAction(nameof(MyLeave));
+                    }
+                    ModelState.AddModelError(string.Empty, "Your request exceeds your remaining allocation");              
                 }
             }
             catch(Exception ex)
