@@ -1,7 +1,4 @@
-﻿using EmployeeLeave.Web.Data;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EmployeeLeave.Web.Models
@@ -32,7 +29,7 @@ namespace EmployeeLeave.Web.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(StartDate > EndDate)
+            if (StartDate > EndDate)
             {
                 yield return new ValidationResult("The Start Date Must Be Before End Date", new[] { nameof(StartDate), nameof(EndDate) });
             }

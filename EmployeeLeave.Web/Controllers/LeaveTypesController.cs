@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using EmployeeLeave.Web.Data;
-using AutoMapper;
-using EmployeeLeave.Web.Models;
-using EmployeeLeave.Web.Contracts;
-using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
 using EmployeeLeave.Web.Constants;
+using EmployeeLeave.Web.Contracts;
+using EmployeeLeave.Web.Data;
+using EmployeeLeave.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeLeave.Web.Controllers
 {
@@ -31,8 +26,8 @@ namespace EmployeeLeave.Web.Controllers
         // GET: LeaveTypes
         public async Task<IActionResult> Index()
         {
-              var leaveTypes = mapper.Map<List<LeaveTypeVM>>(await leaveTypeRepository.GetAllAsync()); 
-              return View(leaveTypes);
+            var leaveTypes = mapper.Map<List<LeaveTypeVM>>(await leaveTypeRepository.GetAllAsync());
+            return View(leaveTypes);
         }
 
         // GET: LeaveTypes/Details/5

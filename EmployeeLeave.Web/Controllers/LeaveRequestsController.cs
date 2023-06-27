@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EmployeeLeave.Web.Constants;
+using EmployeeLeave.Web.Contracts;
+using EmployeeLeave.Web.Data;
+using EmployeeLeave.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeeLeave.Web.Data;
-using EmployeeLeave.Web.Constants;
-using Microsoft.AspNetCore.Authorization;
-using EmployeeLeave.Web.Models;
-using AutoMapper;
-using EmployeeLeave.Web.Contracts;
-using EmployeeLeave.Web.Repositories;
 
 namespace EmployeeLeave.Web.Controllers
 {
@@ -112,10 +106,10 @@ namespace EmployeeLeave.Web.Controllers
                     {
                         return RedirectToAction(nameof(MyLeave));
                     }
-                    ModelState.AddModelError(string.Empty, "Your request exceeds your remaining allocation");              
+                    ModelState.AddModelError(string.Empty, "Your request exceeds your remaining allocation");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "An Error Has Occured, Please Check And Try Again");
             }
@@ -209,14 +203,14 @@ namespace EmployeeLeave.Web.Controllers
             {
                 _context.LeaveRequests.Remove(leaveRequest);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LeaveRequestExists(int id)
         {
-          return (_context.LeaveRequests?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.LeaveRequests?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
