@@ -12,6 +12,8 @@ namespace EmployeeLeave.Web.Models
         public LeaveTypeVM LeaveType { get; set; }
 
         [Display(Name = "Time Of Request")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd")]
+        [DataType(DataType.Date)]
         public DateTime DateRequested { get; set; }
 
         public bool? Approved { get; set; }

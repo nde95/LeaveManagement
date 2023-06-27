@@ -15,8 +15,10 @@ namespace EmployeeLeave.Web.Models
         [Display(Name = "Email Address")]
         public string Email { get; set; }
 
-        [Display(Name = "Date Hired")]
-        public string DateJoined { get; set; }
+        [Display(Name = "Hire Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd")]
+        [DataType(DataType.Date)]
+        public DateTime DateJoined { get; set; }
 
     }
 }

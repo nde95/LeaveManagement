@@ -10,11 +10,16 @@ namespace EmployeeLeave.Web.Models
     {
         [Required]
         [Display(Name = "Start Of Leave")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd")]
+        [DataType(DataType.Date)]
         public DateTime? StartDate { get; set; }
 
         [Required]
         [Display(Name = "End Of Leave")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd")]
+        [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
+
         public SelectList? LeaveTypes { get; set; }
 
         [Required]
