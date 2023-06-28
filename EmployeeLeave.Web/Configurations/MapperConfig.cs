@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EmployeeLeave.Web.Data;
-using EmployeeLeave.Web.Models;
+using EmployeeLeave.Data;
+using EmployeeLeave.Common.Models;
 
 namespace EmployeeLeave.Web.Configurations
 {

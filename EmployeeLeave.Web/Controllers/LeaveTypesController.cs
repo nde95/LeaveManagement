@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using EmployeeLeave.Web.Constants;
-using EmployeeLeave.Web.Contracts;
-using EmployeeLeave.Web.Data;
-using EmployeeLeave.Web.Models;
+using EmployeeLeave.Data;
+using EmployeeLeave.Common.Constants;
+using EmployeeLeave.Application.Contracts;
+using EmployeeLeave.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

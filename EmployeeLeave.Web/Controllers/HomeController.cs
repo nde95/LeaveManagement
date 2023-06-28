@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using EmployeeLeave.Web.Models;
+using EmployeeLeave.Common.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

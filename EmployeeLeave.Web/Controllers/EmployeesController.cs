@@ -1,15 +1,11 @@
-﻿using System.Data;
-using AutoMapper;
-using EmployeeLeave.Web.Constants;
-using EmployeeLeave.Web.Contracts;
-using EmployeeLeave.Web.Data;
-using EmployeeLeave.Web.Models;
-using EmployeeLeave.Web.Repositories;
+﻿using AutoMapper;
+using EmployeeLeave.Common.Constants;
+using EmployeeLeave.Data;
+using EmployeeLeave.Application.Contracts;
+using EmployeeLeave.Common.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
 
 namespace EmployeeLeave.Web.Controllers
 {
@@ -66,10 +62,10 @@ namespace EmployeeLeave.Web.Controllers
                     if (await leaveAllocationRepository.UpdateEmployeeAllocation(model))
                     {
                         return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
-                    }                 
+                    }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "An Error Has Occured, Please Check And Try Again");
             }

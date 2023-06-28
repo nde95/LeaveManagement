@@ -1,10 +1,10 @@
-using EmployeeLeave.Web.Data;
+using EmployeeLeave.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using EmployeeLeave.Web.Configurations;
-using EmployeeLeave.Web.Contracts;
-using EmployeeLeave.Web.Repositories;
+using EmployeeLeave.Application.Contracts;
+using EmployeeLeave.Application.Repositories;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using EmployeeLeave.Web.Services;
 using Serilog;
