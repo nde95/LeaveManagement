@@ -14,11 +14,13 @@ namespace EmployeeLeave.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILeaveRequestRepository leaveRepository;
+        private readonly ILogger<LeaveRequestsController> logger;
 
-        public LeaveRequestsController(ApplicationDbContext context, ILeaveRequestRepository leaveRepository)
+        public LeaveRequestsController(ApplicationDbContext context, ILeaveRequestRepository leaveRepository, ILogger<LeaveRequestsController> logger)
         {
             _context = context;
             this.leaveRepository = leaveRepository;
+            this.logger = logger;
         }
 
         [Authorize(Roles = Roles.Administrator)]
@@ -58,6 +60,7 @@ namespace EmployeeLeave.Web.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError(ex, "Error Approving Request");
                 throw;
             }
             return RedirectToAction(nameof(Index));
@@ -74,7 +77,7 @@ namespace EmployeeLeave.Web.Controllers
             }
             catch (Exception ex)
             {
-
+                logger.LogError(ex, "Error Cancelling Request");
                 throw;
             }
             return RedirectToAction(nameof(MyLeave));
