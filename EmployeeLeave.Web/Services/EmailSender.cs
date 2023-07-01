@@ -34,6 +34,7 @@ namespace EmployeeLeave.Web.Services
             message.To.Add(new MailAddress(email));
 
             using var client = new SmtpClient(smtpServer, smtpPort);
+            client.EnableSsl = enableSsl;
             client.Send(message);
 
             return Task.CompletedTask;
