@@ -33,8 +33,10 @@ namespace EmployeeLeave.Web
                 "smtp-relay.gmail.com",
                 465,
                 "nde95.noreply@gmail.com",
-                "CaveBunga1"
+                "CaveBunga1",
+                true
             ));
+
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
             builder.Services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
