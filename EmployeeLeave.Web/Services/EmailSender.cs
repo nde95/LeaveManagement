@@ -8,12 +8,14 @@ namespace EmployeeLeave.Web.Services
         private string smtpServer;
         private int smtpPort;
         private string fromEmailAddress;
+        private string emailPassword;
 
-        public EmailSender(string smtpServer, int smtpPort, string fromEmailAddress)
+        public EmailSender(string smtpServer, int smtpPort, string fromEmailAddress, string emailPassword)
         {
             this.smtpServer = smtpServer;
             this.smtpPort = smtpPort;
             this.fromEmailAddress = fromEmailAddress;
+            this.emailPassword = emailPassword;
         }
 
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
