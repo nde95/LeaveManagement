@@ -9,16 +9,14 @@ namespace EmployeeLeave.Web.Services
         private int smtpPort;
         private string fromEmailAddress;
         private string emailPassword;
-        private readonly bool enableSsl;
+        private readonly bool enableSsl = true;
 
-        public EmailSender(string smtpServer, int smtpPort, string fromEmailAddress, string emailPassword, bool enableSsl)
+        public EmailSender(string smtpServer, int smtpPort, string fromEmailAddress, string emailPassword)
         {
             this.smtpServer = smtpServer;
             this.smtpPort = smtpPort;
             this.fromEmailAddress = fromEmailAddress;
             this.emailPassword = emailPassword;
-            this.enableSsl = enableSsl;
-            this.enableSsl = enableSsl;
         }
 
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
